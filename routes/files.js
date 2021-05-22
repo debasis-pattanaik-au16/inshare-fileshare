@@ -49,7 +49,7 @@ const uploadFiles = (req, res) => {
     });
     const response = await file.save();
     return res.status(200).json({
-      file: `${process.env.APP_BASE_URL}/files/${response.uuid}`,
+      file: `${process.env.APP_BASE_URL}files/${response.uuid}`,
     });
   });
 };
