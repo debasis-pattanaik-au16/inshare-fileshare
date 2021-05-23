@@ -11,7 +11,7 @@ connectDB();
 
 // Cors
 const corsOptions = {
-  origin: process.env.ALLOWED_CLIENTS.split(','),
+  origin: process.env.ALLOWED_CLIENTS,
 };
 
 app.use(express.static('public'));
