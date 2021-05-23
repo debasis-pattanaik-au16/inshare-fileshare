@@ -14,10 +14,10 @@ const corsOptions = {
   origin: process.env.ALLOWED_CLIENTS.split(','),
 };
 
+app.use(corsOptions);
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(corsOptions);
 
 // Template engine
 app.set('views', path.join(__dirname, '/views'));
