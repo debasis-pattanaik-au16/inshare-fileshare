@@ -1,0 +1,35 @@
+<title>Login Page</title>
+{{>navbar}}
+<h1 class='text-center mt-5' id='heading'>WELCOME TO THE WORLD!!!</h1>
+<div class='container border border-dark w-50 mt-5'>
+  <div class='mt-3'></div>
+  <form action='/api/users/login' method='POST'>
+    <div class='mb-3'>
+      <label for='email' class='form-label'>Email address</label>
+      <input
+        type='email'
+        class='form-control'
+        id='email'
+        aria-describedby='emailHelp'
+        name='email'
+      />
+      <div id='emailHelp' class='form-text'>We'll never share your email with
+        anyone else.</div>
+    </div>
+    <div class='mb-3'>
+      <label for='password' class='form-label'>Password</label>
+      <input
+        type='password'
+        class='form-control'
+        id='password'
+        name='password'
+      />
+    </div>
+    <button type='submit' class='btn'>Submit</button>
+    <div class='mt-3'></div>
+  </form>
+</div>
+<div class='text-center'>
+  <h3 class='h5' id='signup'>If Not User,
+    <a href='/api/users/register'>Sign UP</a></h3>
+</div>

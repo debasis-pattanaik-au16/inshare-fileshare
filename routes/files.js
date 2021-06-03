@@ -90,6 +90,9 @@ const sendAndReceiveEmail = async (req, res) => {
   });
 };
 
+router.get('/', (req, res) => {
+  res.render('fileUpload');
+});
 router.post('/', uploadFiles);
 router.post('/send', sendAndReceiveEmail);
 

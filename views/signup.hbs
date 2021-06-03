@@ -1,0 +1,50 @@
+<title>Signup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap');
+        body{
+            background-image: url("https://images.unsplash.com/photo-1484176141566-3674cda218f0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80");
+        }
+        .btn{
+            background-color: rgb(247, 46, 10);
+            color: antiquewhite;
+            transition: .3s ease ;
+        }
+        .btn:hover{
+            background-color: rgb(40, 245, 245);
+            transform: scale(1.1);
+        }
+        .container{
+            background-color:rgb(235, 250, 98);
+        }
+        .heading{
+            
+            font-family: 'Zen Dots', cursive; 
+        }
+    </style>
+</head>
+
+<body>
+    {{>navbar}}
+    <h1 class="heading mt-5 text-center text-warning">Welcome To Sign Up</h1>
+    <div class="text center mt-3 container w-50 border border-dark rounded justify-content-center align-items-center">
+        <div class="mt-3"></div>
+        <form action="/api/users/register" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Enter Your Full Name</label>
+                <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                    name="name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Enter Your Email ID</label>
+                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    name="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Create Password</label>
+                <input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp"
+                    name="password">
+            </div>
+            <button type="submit" class="btn btn-lg">Submit</button>
+            <div class="mt-3"></div>
+        </form>
+    </div>
