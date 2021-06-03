@@ -13,7 +13,6 @@ connectDB();
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors(corsOptions));
 
 // Template engine
 app.engine('hbs', expHbs({ extname: 'hbs' }));
