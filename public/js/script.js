@@ -19,7 +19,7 @@ const baseURL = 'https://inshare-fileshare.herokuapp.com';
 const uploadURL = `${baseURL}/api/files`;
 const emailURL = `${baseURL}/api/files/send`;
 
-const maxAllowedSize = 100 * 1024 * 1024; //100mb
+const maxAllowedSize = 1000 * 1024 * 1024; //100mb
 
 browseBtn.addEventListener('click', () => {
   fileInput.click();
