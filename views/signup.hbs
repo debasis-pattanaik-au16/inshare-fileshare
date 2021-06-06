@@ -47,4 +47,7 @@
             <button type="submit" class="btn btn-lg">Submit</button>
             <div class="mt-3"></div>
         </form>
+        {{#if message}}
+        <div class="alert alert-danger">{{message}}</div>
+        {{/if}}
     </div>
