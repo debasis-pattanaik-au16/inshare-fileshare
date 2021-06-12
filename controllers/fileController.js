@@ -1,4 +1,3 @@
-require('aws-sdk');
 const multer = require('multer');
 const File = require('../models/file');
 const AWS = require('aws-sdk/clients/s3');
