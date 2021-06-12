@@ -1,17 +1,18 @@
 const multer = require('multer');
 const path = require('path');
 const File = require('../models/file');
+const AWS = require('aws-sdk/clients/s3');
 const { v4: uuid4 } = require('uuid');
 
-const storage = multer.diskStorage({
+const s3 = new AWS({
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET,
+  region: process.env.AWS_BUCKET_REGION,
+});
+
+const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(
-      Math.random() * 1e9
-    )}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+    cb(null, '');
   },
 });
 
@@ -25,6 +26,9 @@ const upload = multer({
 exports.uploadFiles = (req, res) => {
   // Store files
   upload(req, res, async err => {
+    let myfile = req.file.originalname.split('.');
+    const fileType = myfile[myfile.length - 1];
+
     // Validate request
     if (!req.file) {
       res.status(404).json({
@@ -37,16 +41,30 @@ exports.uploadFiles = (req, res) => {
     if (err) {
       return res.status(500).send({ error: err.message });
     }
-    // Store Database
-    const file = new File({
-      filename: req.file.filename,
-      uuid: uuid4(),
-      path: req.file.path,
-      size: req.file.size,
-    });
-    const response = await file.save();
-    return res.status(200).json({
-      file: `${process.env.APP_BASE_URL}/files/${response.uuid}`,
+
+    // Storing in AWS S3 Bucket
+    const params = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: `${uuid4()}.${fileType}`,
+      Body: req.file.buffer,
+      ACL: 'public-read',
+    };
+
+    s3.upload(params, async (error, data) => {
+      if (error) {
+        res.status(500).send(error);
+      }
+      // Store Database
+      const file = new File({
+        filename: req.file.originalname,
+        uuid: uuid4(),
+        path: data.Location,
+        size: req.file.size,
+      });
+      const response = await file.save();
+      return res.status(200).json({
+        file: `${process.env.APP_BASE_URL}/files/${response.uuid}`,
+      });
     });
   });
 };

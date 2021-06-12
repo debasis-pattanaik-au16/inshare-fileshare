@@ -12,7 +12,7 @@ exports.showDownloadLink = async (req, res) => {
       uuid: file.uuid,
       fileName: file.filename,
       fileSize: file.size,
-      downloadLink: `${process.env.APP_BASE_URL}/files/download/${file.uuid}`,
+      downloadLink: file.path,
     });
   } catch (error) {
     res.status(404).render('download', {
